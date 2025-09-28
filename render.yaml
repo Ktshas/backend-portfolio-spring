@@ -1,10 +1,9 @@
-# Render 배포 설정 파일
-# 이 파일은 Render에서 자동으로 인식됩니다
-
 services:
   - type: web
     name: tskim-portfolio-backend
-    buildCommand: ./gradlew build -x test
+    env: java
+    plan: free        # 유료 플랜이면 starter, standard 등으로 변경 가능
+    buildCommand: ./gradlew clean build -x test
     startCommand: java -jar build/libs/tskim-portfolio-backend-0.0.1-SNAPSHOT.jar
     envVars:
       - key: MONGODB_URI
