@@ -1,7 +1,6 @@
 services:
   - type: web
     name: tskim-portfolio-backend
-    runtime: java
     plan: free        # 유료 플랜이면 starter, standard 등으로 변경 가능
     buildCommand: ./gradlew clean build -x test
     startCommand: java -jar build/libs/tskim-portfolio-backend-0.0.1-SNAPSHOT.jar
