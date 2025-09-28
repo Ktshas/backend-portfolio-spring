@@ -82,8 +82,20 @@ src/
 ### **MongoDB Atlas 설정**
 1. MongoDB Atlas에서 클러스터 생성
 2. 데이터베이스 사용자 생성
-3. IP 화이트리스트 설정
+3. **IP 화이트리스트 설정** (중요!)
 4. 연결 문자열 복사
+
+#### **IP 화이트리스트 설정 방법**
+- 렌더 서버에 배포 후 몽고템플릿은 동작하는데 몽고리포지터리는 ssl 어쩌고 타임아웃 문제가 발생함.
+1. MongoDB Atlas 콘솔 → **Network Access** → **IP Access List**
+2. **Add IP Address** 클릭
+3. 0.0.0.0/0 추가하니 해결됨
+4. 렌더서버 페이지의 Events 메뉴에서 우측상단에 Connect 버튼누르면 Outbound IP Addresses 있음 0.0.0.0/0 대신에 이거 추가하면 됨
+5. **Save** 클릭
+
+**⚠️ 주의사항:**
+- Render 서버는 동적 IP를 사용하므로 `0.0.0.0/0` 설정이 필요합니다
+- IP 화이트리스트 미설정 시 SSL 연결 에러가 발생합니다
 
 ### **로컬 실행**
 ```bash
@@ -144,7 +156,13 @@ src/
    - `MONGODB_URI`
    - `WEATHER_API_KEY`
    - `PORT`
-3. **자동 배포**: GitHub 연동
+3. **MongoDB Atlas IP 화이트리스트**: `0.0.0.0/0` 설정 필수
+4. **자동 배포**: GitHub 연동
+
+#### **배포 시 주의사항**
+- **MongoDB Atlas IP 화이트리스트**에 `0.0.0.0/0` 추가 필수
+- 미설정 시 `SSLException: Received fatal alert: internal_error` 에러 발생
+- Render 서버는 동적 IP를 사용하므로 모든 IP 허용이 필요합니다
 
 ### **빌드 명령어**
 ```bash
