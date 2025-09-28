@@ -5,7 +5,6 @@ spring:
     mongodb:
       # MongoDB Atlas 연결
       uri: ${MONGODB_URI}
-      auto-index-creation: true
 
 server:
   port: ${PORT:8080}
