@@ -1,0 +1,14 @@
+# Render 배포 설정 파일
+# 이 파일은 Render에서 자동으로 인식됩니다
+
+# 빌드 명령어
+buildCommand: ./gradlew build -x test
+
+# 실행 명령어  
+startCommand: java -jar build/libs/tskim-portfolio-backend-0.0.1-SNAPSHOT.jar
+
+# 환경변수 (Render 대시보드에서 설정)
+# DATABASE_URL=jdbc:postgresql://[host]:[port]/[database]
+# DATABASE_USERNAME=[username]  
+# DATABASE_PASSWORD=[password]
+# PORT=8080

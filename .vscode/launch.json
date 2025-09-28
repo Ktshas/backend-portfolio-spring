@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "local",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.tskim.portfolio.StartApplication",
+            "args": "",
+            "vmArgs": "-Dspring.profiles.active=dev",
+            "env": {
+                "SPRING_PROFILES_ACTIVE": "dev"
+            },
+            "console": "integratedTerminal"
+        }
+    ]
+}

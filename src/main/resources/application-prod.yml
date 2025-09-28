@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      # MongoDB Atlas 연결 (운영환경)
+      uri: ${MONGODB_URI}
+      auto-index-creation: false
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    com.tskim.portfolio: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN

@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+  data:
+    mongodb:
+      # MongoDB Atlas 연결
+      uri: ${MONGODB_URI}
+      auto-index-creation: true
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    com.tskim.portfolio: DEBUG
+    org.springframework.web: DEBUG
+
+# 기상청 API 설정
+weather:
+  api:
+    base-url: http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst
+    service-key: ${WEATHER_API_KEY}  # 환경변수에서 인증키 가져오기
+    num-of-rows: 1000
+    page-no: 1
+    data-type: JSON
