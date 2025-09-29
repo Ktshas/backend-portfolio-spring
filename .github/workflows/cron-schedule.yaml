@@ -3,7 +3,7 @@ name: Keep Render Awake
 on:
   schedule:
     - cron: "*/15 22-23 * * *"  # UTC 22시~23시 → KST 07시~08시
-    - cron: "*/15 0-12 * * *"   # UTC 00시~12시 → KST 09시~21시 이렇게 나누면 최종적으로 KST 07:00~21:59 사이에만 15분마다 실행됩니다.
+    - cron: "*/15 0-12 * * *"   # UTC 00시~12시 → KST 09시~21시
   workflow_dispatch:
 
 jobs:
