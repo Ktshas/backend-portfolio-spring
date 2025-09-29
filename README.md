@@ -174,6 +174,29 @@ src/
 java -jar build/libs/tskim-portfolio-backend-0.0.1-SNAPSHOT.jar
 ```
 
+## ⚙️ GitHub Actions
+
+### **Keep Render Awake (cron-schedule.yaml)**
+Render 서버의 콜드 슬립을 방지하기 위한 자동화 워크플로우입니다.
+
+**설정:**
+- **실행 주기**: 15분마다 (KST 07:00~21:00)
+- **목적**: Render 서버 콜드 슬립 방지
+- **동작**: `/api/test` 엔드포인트에 HTTP 요청 전송
+
+**Cron 표현식:**
+```yaml
+    - cron: "*/15 22-23 * * *"  # UTC 22시~23시 → KST 07시~08시
+    - cron: "*/15 0-12 * * *"   # UTC 00시~12시 → KST 09시~21시 이렇게 나누면 최종적으로 07:00~21:59 사이에만 15분마다 실행됩니다.
+```
+
+**향후 계획:**
+- 주기적인 날씨 정보 수집을 위한 크론 작업으로 확장 예정
+- 기상청 API를 활용한 자동 데이터 업데이트
+
+**수동 실행:**
+GitHub Actions 탭에서 `workflow_dispatch`를 통해 수동 실행 가능
+
 ## 📝 개발 노트
 
 ### **패키지 구조**
