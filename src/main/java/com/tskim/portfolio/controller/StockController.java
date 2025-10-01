@@ -91,4 +91,29 @@ public class StockController {
                     .body(ApiResponseDto.error("주식 정보 조회 중 오류가 발생했습니다"));
         }
     }
+    
+    /**
+     * 목표가 알림 체크 (Git Action에서 5분마다 호출)
+     */
+    @PostMapping("/check-target-price")
+    @Operation(summary = "목표가 알림 체크", description = "보유 주식들의 목표가 도달 여부를 체크하고 필요시 알림을 발송합니다")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "체크 완료"),
+        @ApiResponse(responseCode = "500", description = "서버 내부 오류")
+    })
+    public ResponseEntity<?> checkTargetPriceNotifications() {
+        try {
+            log.info("목표가 알림 체크 API 호출");
+            
+            List<String> notifiedStocks = stockService.checkTargetPriceNotifications();
+            
+            return ResponseEntity.ok(ApiResponseDto.success(notifiedStocks, 
+                "목표가 알림 체크 완료 - 알림 발송된 종목: " + notifiedStocks.size() + "개"));
+            
+        } catch (Exception e) {
+            log.error("목표가 알림 체크 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponseDto.error("목표가 알림 체크 중 오류가 발생했습니다"));
+        }
+    }
 }

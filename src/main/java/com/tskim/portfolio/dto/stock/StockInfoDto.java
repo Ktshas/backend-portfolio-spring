@@ -87,6 +87,11 @@ public class StockInfoDto {
     private String targetPrice;
     
     /**
+     * 목표가 알림 방향 (UP: 이상일 때 알림, DOWN: 이하일 때 알림)
+     */
+    private String targetPriceDirection;
+    
+    /**
      * 전일 대비 변동 방향을 한국어로 변환
      */
     public String getCompareDirectionKorean() {
@@ -109,6 +114,19 @@ public class StockInfoDto {
         return switch (marketStatus) {
             case "OPEN" -> "거래중";
             case "CLOSE" -> "거래종료";
+            default -> "정보없음";
+        };
+    }
+    
+    /**
+     * 목표가 알림 방향을 한국어로 변환
+     */
+    public String getTargetPriceDirectionKorean() {
+        if (targetPriceDirection == null) return "정보없음";
+        
+        return switch (targetPriceDirection) {
+            case "UP" -> "이상";
+            case "DOWN" -> "이하";
             default -> "정보없음";
         };
     }
