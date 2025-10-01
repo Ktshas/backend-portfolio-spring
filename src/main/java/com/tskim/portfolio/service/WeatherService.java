@@ -1,7 +1,7 @@
 package com.tskim.portfolio.service;
 
-import com.tskim.portfolio.dto.WeatherInfoDto;
-import com.tskim.portfolio.dto.WeatherResponseDto;
+import com.tskim.portfolio.dto.weather.WeatherInfoDto;
+import com.tskim.portfolio.dto.weather.WeatherResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

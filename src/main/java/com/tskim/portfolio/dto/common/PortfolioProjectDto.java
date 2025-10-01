@@ -1,4 +1,4 @@
-package com.tskim.portfolio.dto;
+package com.tskim.portfolio.dto.common;
 
 import com.tskim.portfolio.entity.PortfolioProject;
 import lombok.Data;

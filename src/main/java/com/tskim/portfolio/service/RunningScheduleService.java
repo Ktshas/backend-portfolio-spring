@@ -1,7 +1,7 @@
 package com.tskim.portfolio.service;
 
-import com.tskim.portfolio.dto.RunningScheduleDto;
-import com.tskim.portfolio.dto.WeatherInfoDto;
+import com.tskim.portfolio.dto.running.RunningScheduleDto;
+import com.tskim.portfolio.dto.weather.WeatherInfoDto;
 import com.tskim.portfolio.entity.RunningSchedule;
 import com.tskim.portfolio.repository.RunningScheduleRepository;
 import lombok.RequiredArgsConstructor;

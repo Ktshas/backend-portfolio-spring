@@ -1,7 +1,8 @@
-package com.tskim.portfolio.dto;
+package com.tskim.portfolio.dto.running;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tskim.portfolio.entity.RunningSchedule;
+import com.tskim.portfolio.dto.weather.WeatherInfoDto;
 import lombok.Data;
 
 import jakarta.validation.constraints.*;

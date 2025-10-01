@@ -1,4 +1,4 @@
-package com.tskim.portfolio.dto;
+package com.tskim.portfolio.dto.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

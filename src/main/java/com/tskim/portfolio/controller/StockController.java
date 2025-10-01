@@ -1,7 +1,7 @@
 package com.tskim.portfolio.controller;
 
-import com.tskim.portfolio.dto.ApiResponseDto;
-import com.tskim.portfolio.dto.StockInfoDto;
+import com.tskim.portfolio.dto.common.ApiResponseDto;
+import com.tskim.portfolio.dto.stock.StockInfoDto;
 import com.tskim.portfolio.service.StockService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package com.tskim.portfolio.dto;
+package com.tskim.portfolio.dto.weather;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
