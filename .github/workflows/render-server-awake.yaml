@@ -1,0 +1,14 @@
+name: Render Server Awake
+
+on:
+  schedule:
+    # KST 오전 7시~9시, 오후 6시~10시 (UTC 22시~0시, 9시~1시)
+    - cron: "*/15 22,23,0,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0,1 * * *"
+  workflow_dispatch:
+
+jobs:
+  keep-awake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep Render Server Awake
+        run: curl -s https://tskim-portfolio-backend.onrender.com/api/test || true
