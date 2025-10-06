@@ -15,13 +15,6 @@ public class CryptoConstants {
         public static final String XRP = "KRW-XRP";
     }
     
-    // 관심 암호화폐 목록 (주요 코인들 - 실제 업비트에서 거래되는 마켓만)
-    public static final List<String> INTERESTED_CRYPTOS = List.of(
-        CryptoCode.BTC,    // 비트코인
-        CryptoCode.ETH,    // 이더리움
-        CryptoCode.XRP     // 리플
-    );
-    
     // 목표가 알림 대상 암호화폐 (BTC만)
     public static final List<String> TARGET_PRICE_ALERT_CRYPTOS = List.of(
         CryptoCode.BTC     // 비트코인만 목표가 알림
@@ -115,12 +108,4 @@ public class CryptoConstants {
         }
     }
     
-    /**
-     * 관심 암호화폐 목록을 쿼리 파라미터 형태로 반환합니다.
-     * 
-     * @return 암호화폐 코드들을 쉼표로 구분한 문자열
-     */
-    public static String getInterestedCryptosAsQueryParam() {
-        return String.join(",", INTERESTED_CRYPTOS);
-    }
 }

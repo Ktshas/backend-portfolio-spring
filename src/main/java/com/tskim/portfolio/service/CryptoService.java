@@ -19,89 +19,23 @@ public class CryptoService {
     private final WebClient.Builder webClientBuilder;
     
     /**
-     * 관심 암호화폐들의 실시간 정보를 조회합니다.
+     * 암호화폐들의 실시간 정보를 조회합니다.
      * 
-     * @return 관심 암호화폐 정보 리스트
-     */
-    public List<CryptoInfoDto> getInterestedCryptosInfo() {
-        try {
-            log.info("관심 암호화폐 정보 조회 요청");
-            
-            // 업비트 API 호출
-            List<CryptoResponseDto> cryptoResponses = callUpbitApi();
-            
-            // 응답 데이터 파싱
-            List<CryptoInfoDto> cryptoInfos = cryptoResponses.stream()
-                    .map(this::parseCryptoResponse)
-                    .toList();
-            
-            log.info("관심 암호화폐 정보 조회 완료: {} 종목", cryptoInfos.size());
-            return cryptoInfos;
-            
-        } catch (Exception e) {
-            log.error("관심 암호화폐 정보 조회 중 오류 발생", e);
-            throw new RuntimeException("암호화폐 정보 조회 중 오류가 발생했습니다.", e);
-        }
-    }
-    
-    /**
-     * 특정 암호화폐의 실시간 정보를 조회합니다.
-     * 
-     * @param cryptoCode 암호화폐 코드 (예: KRW-BTC, KRW-ETH, KRW-XRP)
-     * @return 암호화폐 정보
-     */
-    public CryptoInfoDto getCryptoInfo(String cryptoCode) {
-        try {
-            log.info("암호화폐 정보 조회 요청: cryptoCode={}", cryptoCode);
-            
-            // 암호화폐 코드 유효성 검증
-            if (cryptoCode == null || cryptoCode.trim().isEmpty()) {
-                throw new IllegalArgumentException("암호화폐 코드는 필수입니다");
-            }
-            
-            if (!cryptoCode.matches("^KRW-[A-Z]+$")) {
-                throw new IllegalArgumentException("암호화폐 코드는 KRW-XXX 형식이어야 합니다");
-            }
-            
-            // 업비트 API 호출
-            List<CryptoResponseDto> cryptoResponses = callUpbitApi(cryptoCode);
-            
-            if (cryptoResponses.isEmpty()) {
-                throw new IllegalArgumentException("해당 암호화폐 정보를 찾을 수 없습니다: " + cryptoCode);
-            }
-            
-            // 응답 데이터 파싱
-            CryptoInfoDto cryptoInfo = parseCryptoResponse(cryptoResponses.get(0));
-            
-            log.info("암호화폐 정보 조회 완료: {}", cryptoInfo);
-            return cryptoInfo;
-            
-        } catch (IllegalArgumentException e) {
-            log.warn("암호화폐 정보 조회 실패 - 잘못된 요청: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("암호화폐 정보 조회 중 오류 발생: cryptoCode={}", cryptoCode, e);
-            throw new RuntimeException("암호화폐 정보 조회 중 오류가 발생했습니다: " + cryptoCode, e);
-        }
-    }
-    
-    /**
-     * 복수 암호화폐들의 실시간 정보를 조회합니다.
-     * 
-     * @param cryptoCodes 암호화폐 코드 배열 (예: ["KRW-BTC", "KRW-ETH", "KRW-XRP"])
+     * @param cryptoCodes 암호화폐 코드들 (쉼표로 구분, 예: "KRW-BTC,KRW-ETH,KRW-XRP")
      * @return 암호화폐 정보 리스트
      */
-    public List<CryptoInfoDto> getCryptoInfos(String[] cryptoCodes) {
+    public List<CryptoInfoDto> getCryptoInfos(String cryptoCodes) {
         try {
-            log.info("복수 암호화폐 정보 조회 요청: {}", String.join(",", cryptoCodes));
+            log.info("암호화폐 정보 조회 요청: {}", cryptoCodes);
             
             // 암호화폐 코드 유효성 검증
-            if (cryptoCodes == null || cryptoCodes.length == 0) {
+            if (cryptoCodes == null || cryptoCodes.trim().isEmpty()) {
                 throw new IllegalArgumentException("암호화폐 코드는 필수입니다");
             }
             
             // 각 코드 유효성 검증
-            for (String code : cryptoCodes) {
+            String[] codes = cryptoCodes.split(",");
+            for (String code : codes) {
                 if (code == null || code.trim().isEmpty()) {
                     throw new IllegalArgumentException("암호화폐 코드는 비어있을 수 없습니다");
                 }
@@ -110,12 +44,11 @@ public class CryptoService {
                 }
             }
             
-            // 업비트 API 호출 (쉼표로 구분된 문자열로 변환)
-            String markets = String.join(",", cryptoCodes);
-            List<CryptoResponseDto> cryptoResponses = callUpbitApi(markets);
+            // 업비트 API 호출
+            List<CryptoResponseDto> cryptoResponses = callUpbitApi(cryptoCodes);
             
             if (cryptoResponses.isEmpty()) {
-                throw new IllegalArgumentException("해당 암호화폐 정보를 찾을 수 없습니다: " + markets);
+                throw new IllegalArgumentException("해당 암호화폐 정보를 찾을 수 없습니다: " + cryptoCodes);
             }
             
             // 응답 데이터 파싱
@@ -123,25 +56,16 @@ public class CryptoService {
                     .map(this::parseCryptoResponse)
                     .toList();
             
-            log.info("복수 암호화폐 정보 조회 완료: {} 종목", cryptoInfos.size());
+            log.info("암호화폐 정보 조회 완료: {} 종목", cryptoInfos.size());
             return cryptoInfos;
             
         } catch (IllegalArgumentException e) {
-            log.warn("복수 암호화폐 정보 조회 실패 - 잘못된 요청: {}", e.getMessage());
+            log.warn("암호화폐 정보 조회 실패 - 잘못된 요청: {}", e.getMessage());
             throw e;
         } catch (Exception e) {
-            log.error("복수 암호화폐 정보 조회 중 오류 발생: cryptoCodes={}", String.join(",", cryptoCodes), e);
-            throw new RuntimeException("복수 암호화폐 정보 조회 중 오류가 발생했습니다: " + String.join(",", cryptoCodes), e);
+            log.error("암호화폐 정보 조회 중 오류 발생: cryptoCodes={}", cryptoCodes, e);
+            throw new RuntimeException("암호화폐 정보 조회 중 오류가 발생했습니다: " + cryptoCodes, e);
         }
-    }
-    
-    /**
-     * 업비트 API를 호출합니다.
-     * 
-     * @return 암호화폐 응답 리스트
-     */
-    private List<CryptoResponseDto> callUpbitApi() {
-        return callUpbitApi(CryptoConstants.getInterestedCryptosAsQueryParam());
     }
     
     /**
@@ -209,9 +133,8 @@ public class CryptoService {
             log.info("암호화폐 목표가 알림 체크 시작");
             
             // 목표가 알림 대상 암호화폐들만 조회
-            List<CryptoInfoDto> targetCryptoInfos = CryptoConstants.TARGET_PRICE_ALERT_CRYPTOS.stream()
-                    .map(this::getCryptoInfo)
-                    .toList();
+            String targetCryptoCodes = String.join(",", CryptoConstants.TARGET_PRICE_ALERT_CRYPTOS);
+            List<CryptoInfoDto> targetCryptoInfos = getCryptoInfos(targetCryptoCodes);
             
             List<String> notifiedCryptos = targetCryptoInfos.stream()
                     .filter(this::checkAndSendNotification)

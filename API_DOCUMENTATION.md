@@ -93,47 +93,7 @@
 
 ## 암호화폐 정보 조회 API
 
-### 1. 관심 암호화폐 실시간 정보 조회
-
-#### 기본 정보
-- **URL**: `/api/crypto`
-- **Method**: `GET`
-- **Content-Type**: `application/json`
-- **Description**: 관심 암호화폐들의 실시간 가격 정보를 조회합니다.
-
-#### 응답
-
-##### 성공 응답 (200 OK)
-```json
-{
-  "success": true,
-  "message": "관심 암호화폐 정보 조회 성공",
-  "data": [
-    {
-      "cryptoCode": "KRW-BTC",
-      "cryptoName": "비트코인",
-      "tradePrice": "148601000",
-      "changePrice": "-136000",
-      "changeRate": "-0.09",
-      "change": "FALL",
-      "openingPrice": "148737000",
-      "highPrice": "149360000",
-      "lowPrice": "148288000",
-      "tradeVolume": "0.00016823",
-      "accTradePrice": "31615925234.05438",
-      "accTradePrice24h": "178448329314.96686",
-      "accTradeVolume24h": "1198.26954807",
-      "highest52WeekPrice": "163325000",
-      "lowest52WeekPrice": "72100000",
-      "tradeTimeKst": "141400",
-      "targetPrice": "155,000,000",
-      "targetPriceDirection": "DOWN"
-    }
-  ]
-}
-```
-
-### 2. 특정 암호화폐 실시간 정보 조회
+### 1. 특정 암호화폐 실시간 정보 조회
 
 #### 기본 정보
 - **URL**: `/api/crypto/{cryptoCodes}`
@@ -210,33 +170,6 @@
 - **단일 종목**: `/api/crypto/KRW-BTC`
 - **복수 종목**: `/api/crypto/KRW-BTC,KRW-ETH,KRW-XRP`
 - **공백 포함**: `/api/crypto/KRW-BTC, KRW-ETH, KRW-XRP` (자동으로 공백 제거됨)
-
-### 3. 목표가 알림 체크
-
-#### 기본 정보
-- **URL**: `/api/crypto/check-target-price`
-- **Method**: `POST`
-- **Content-Type**: `application/json`
-- **Description**: 관심 암호화폐들의 목표가 도달 여부를 체크하고 필요시 알림을 발송합니다.
-
-#### 응답
-
-##### 성공 응답 (200 OK)
-```json
-{
-  "success": true,
-  "message": "암호화폐 목표가 알림 체크 완료 - 알림 발송된 종목: 1개",
-  "data": ["KRW-BTC"]
-}
-```
-
-#### 지원하는 암호화폐
-- KRW-BTC (비트코인) - 목표가 알림 대상
-- KRW-ETH (이더리움)
-- KRW-XRP (리플)
-
-#### 목표가 알림 설정
-- **BTC**: 155,000,000원 이하일 때 알림 (DOWN 방향)
 
 ---
 
