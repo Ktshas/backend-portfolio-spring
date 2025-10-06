@@ -1,5 +1,6 @@
 package com.tskim.portfolio.controller;
 
+import com.tskim.portfolio.constants.CryptoConstants;
 import com.tskim.portfolio.dto.common.ApiResponseDto;
 import com.tskim.portfolio.dto.crypto.CryptoInfoDto;
 import com.tskim.portfolio.service.CryptoService;
@@ -65,5 +66,30 @@ public class CryptoController {
                     .body(ApiResponseDto.error("암호화폐 정보 조회 중 오류가 발생했습니다"));
         }
     }
+
+    /**
+     * 관심 암호화폐들의 실시간 정보 조회
+     */
+    @GetMapping
+    @Operation(summary = "관심 암호화폐 실시간 정보 조회", description = "관심 암호화폐들의 실시간 가격 정보를 조회합니다")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "조회 성공"),
+        @ApiResponse(responseCode = "500", description = "서버 내부 오류")
+    })
+    public ResponseEntity<?> getInterestedCryptosInfo() {
+        try {
+            log.info("관심 암호화폐 정보 조회 요청");
+            
+            List<CryptoInfoDto> cryptoInfos = cryptoService.getCryptoInfos(CryptoConstants.INTERESTED_CRYPTOS);
+            
+            return ResponseEntity.ok(ApiResponseDto.success(cryptoInfos, "관심 암호화폐 정보 조회 성공"));
+            
+        } catch (Exception e) {
+            log.error("관심 암호화폐 정보 조회 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponseDto.error("암호화폐 정보 조회 중 오류가 발생했습니다"));
+        }
+    }
+    
     
 }

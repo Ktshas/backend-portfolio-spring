@@ -15,6 +15,9 @@ public class CryptoConstants {
         public static final String XRP = "KRW-XRP";
     }
     
+    // 관심 암호화폐 목록 (쉼표로 구분된 문자열)
+    public static final String INTERESTED_CRYPTOS = CryptoCode.BTC+","+CryptoCode.ETH+","+CryptoCode.XRP;
+    
     // 목표가 알림 대상 암호화폐 (BTC만)
     public static final List<String> TARGET_PRICE_ALERT_CRYPTOS = List.of(
         CryptoCode.BTC     // 비트코인만 목표가 알림

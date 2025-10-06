@@ -93,7 +93,87 @@
 
 ## 암호화폐 정보 조회 API
 
-### 1. 특정 암호화폐 실시간 정보 조회
+### 1. 관심 암호화폐 실시간 정보 조회
+
+#### 기본 정보
+- **URL**: `/api/crypto`
+- **Method**: `GET`
+- **Content-Type**: `application/json`
+- **Description**: 관심 암호화폐들의 실시간 가격 정보를 조회합니다.
+
+#### 응답
+
+##### 성공 응답 (200 OK)
+```json
+{
+  "success": true,
+  "message": "관심 암호화폐 정보 조회 성공",
+  "data": [
+    {
+      "cryptoCode": "KRW-BTC",
+      "cryptoName": "비트코인",
+      "tradePrice": "148601000",
+      "changePrice": "-136000",
+      "changeRate": "-0.09",
+      "change": "FALL",
+      "openingPrice": "148737000",
+      "highPrice": "149360000",
+      "lowPrice": "148288000",
+      "tradeVolume": "0.00016823",
+      "accTradePrice": "31615925234.05438",
+      "accTradePrice24h": "178448329314.96686",
+      "accTradeVolume24h": "1198.26954807",
+      "highest52WeekPrice": "163325000",
+      "lowest52WeekPrice": "72100000",
+      "tradeTimeKst": "141400",
+      "targetPrice": "155,000,000",
+      "targetPriceDirection": "DOWN"
+    },
+    {
+      "cryptoCode": "KRW-ETH",
+      "cryptoName": "이더리움",
+      "tradePrice": "4500000",
+      "changePrice": "50000",
+      "changeRate": "1.12",
+      "change": "RISE",
+      "openingPrice": "4450000",
+      "highPrice": "4550000",
+      "lowPrice": "4400000",
+      "tradeVolume": "1.23456789",
+      "accTradePrice": "12345678901.23",
+      "accTradePrice24h": "98765432109.87",
+      "accTradeVolume24h": "1234.56789012",
+      "highest52WeekPrice": "5000000",
+      "lowest52WeekPrice": "2000000",
+      "tradeTimeKst": "141400",
+      "targetPrice": null,
+      "targetPriceDirection": null
+    },
+    {
+      "cryptoCode": "KRW-XRP",
+      "cryptoName": "리플",
+      "tradePrice": "1200",
+      "changePrice": "50",
+      "changeRate": "4.35",
+      "change": "RISE",
+      "openingPrice": "1150",
+      "highPrice": "1250",
+      "lowPrice": "1100",
+      "tradeVolume": "123456.789",
+      "accTradePrice": "1234567890.12",
+      "accTradePrice24h": "9876543210.98",
+      "accTradeVolume24h": "123456.789012",
+      "highest52WeekPrice": "2000",
+      "lowest52WeekPrice": "500",
+      "tradeTimeKst": "141400",
+      "targetPrice": null,
+      "targetPriceDirection": null
+    }
+  ]
+}
+```
+
+### 2. 특정 암호화폐 실시간 정보 조회
 
 #### 기본 정보
 - **URL**: `/api/crypto/{cryptoCodes}`
